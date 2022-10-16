@@ -6,7 +6,7 @@
 
 package com.signify.reviewservice.util;
 
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,8 +14,9 @@ public class DateTimeUtil {
     private DateTimeUtil() {
         throw new IllegalArgumentException("Utility class");
     }
-    public static Date incrementADateByOneDay(Date startDate) {
-        return Date.from(startDate.toInstant().plus(1, ChronoUnit.DAYS));
+
+    public static LocalDate incrementADateByOneDay(LocalDate date) {
+        return date.plusDays(1);
     }
 
     public static Date resetADayTime(Date date) {
@@ -26,4 +27,12 @@ public class DateTimeUtil {
         calendar.set(Calendar.SECOND, 0);
         return calendar.getTime();
     }
+
+    public static int getLastDayOfAMonth(LocalDate date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, date.getYear());
+        calendar.set(Calendar.MONTH, date.getMonthValue());
+        return calendar.getActualMaximum(Calendar.DATE);
+    }
+
 }
