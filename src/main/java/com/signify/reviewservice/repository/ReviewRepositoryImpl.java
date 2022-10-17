@@ -10,10 +10,7 @@ import com.mongodb.BasicDBObject;
 import com.signify.reviewservice.dto.AverageReview;
 import com.signify.reviewservice.dto.ProductRating;
 import com.signify.reviewservice.entity.Review;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -28,8 +25,6 @@ import java.util.List;
 
 @Repository
 public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
-    private static final Logger logger = LoggerFactory.getLogger(ReviewRepositoryImpl.class);
-
     private static final String RATING = "rating";
     private static final String REVIEW_SOURCE = "reviewSource";
     private static final String REVIEW_DATE = "reviewDate";
@@ -39,7 +34,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public Page<Review> getReviewByFilter(Integer rating, String storeType,
+    public List<Review> getReviewByFilter(Integer rating, String storeType,
                                           LocalDate startDate, LocalDate endDate, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Query query = new Query().with(pageable);
@@ -52,7 +47,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return PageableExecutionUtils.getPage(
                 filteredReviewList,
                 pageable,
-                () -> mongoTemplate.count(query, Review.class));
+                () -> mongoTemplate.count(query, Review.class)).getContent();
     }
 
     public List<AverageReview> getMonthlyAverageReviews(LocalDate startDate, LocalDate endDate) {

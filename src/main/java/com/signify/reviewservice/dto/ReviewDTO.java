@@ -9,7 +9,7 @@ package com.signify.reviewservice.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 public class ReviewDTO {
@@ -23,5 +23,5 @@ public class ReviewDTO {
     @JsonProperty(value = "product_name")
     private String productName;
     @JsonProperty(value = "reviewed_date")
-    private Instant reviewDate;
+    private LocalDate reviewDate;
 }
