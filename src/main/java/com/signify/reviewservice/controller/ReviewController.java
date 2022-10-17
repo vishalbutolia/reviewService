@@ -34,7 +34,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping(value = "review", produces =  MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "review", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReviewDTO>> saveReviews(@RequestBody List<ReviewDTO> reviewDTOS) throws UnsupportedReviewSource {
         logger.info("save reviews request");
         List<Review> reviews = ReviewTransformer.transformTo(reviewDTOS);
@@ -43,21 +43,21 @@ public class ReviewController {
     }
 
     /*
-    * input date should be in format: yyyy-mm-dd
-    * */
+     * input date should be in format: yyyy-mm-dd
+     * */
     @GetMapping(value = "review", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReviewDTO>> getReview(@RequestParam(name = "rating", required = false) Integer rating,
-                                     @RequestParam(name = "store", required = false) String storeType,
-                                     @RequestParam(name = "date", required = false)
-                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-                                     @RequestParam(required = false, defaultValue = "0") int page,
-                                     @RequestParam(required = false, defaultValue = "5") int size) throws UnsupportedReviewSource {
+                                                     @RequestParam(name = "store", required = false) String storeType,
+                                                     @RequestParam(name = "date", required = false)
+                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+                                                     @RequestParam(required = false, defaultValue = "0") int page,
+                                                     @RequestParam(required = false, defaultValue = "5") int size) throws UnsupportedReviewSource {
         logger.info("getting reviews with params rating: {}," +
                 " storeType:{}, date:{}, page:{}, size:{}", rating, storeType, date, page, size);
         return ResponseEntity.ok(reviewService.getReviews(rating, storeType, date, page, size));
     }
 
-    @GetMapping(value = "review/average", produces =  MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "review/average", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AverageReview>> getMonthlyAverageReview(
             @RequestParam(required = false) int year,
             @RequestParam(required = false) int month) {
@@ -65,7 +65,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getMonthlyAverageReview(year, month));
     }
 
-    @GetMapping(value = "review/all/category", produces =  MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "review/all/category", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductRating>> getProductsRating() {
         logger.info("getting product wise overall rating");
         return ResponseEntity.ok(reviewService.getProductsOverallRating());
