@@ -49,6 +49,7 @@ public class ReviewService {
         LocalDate endDate = null;
         if (startDate != null) {
             endDate = DateTimeUtil.incrementADateByOneDay(startDate);
+            startDate = DateTimeUtil.decrementADayByOne(startDate);
         }
         return ReviewTransformer.
                 transformFrom(reviewRepository.getReviewByFilter(rating, storeType, startDate, endDate, page, size));

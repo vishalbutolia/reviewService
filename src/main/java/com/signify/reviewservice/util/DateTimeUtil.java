@@ -19,6 +19,10 @@ public class DateTimeUtil {
         return date.plusDays(1);
     }
 
+    public static LocalDate decrementADayByOne(LocalDate date) {
+        return date.minusDays(1);
+    }
+
     public static Date resetADayTime(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

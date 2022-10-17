@@ -16,7 +16,8 @@ import java.util.List;
 
 @Component
 public class ReviewValidation {
-    private static final List<String> supportedReviewSource = Arrays.asList(StringConstantsUtil.GOOGLE_PLAY_STORE, StringConstantsUtil.ITUNES);
+    private static final List<String> supportedReviewSource = Arrays.asList(StringConstantsUtil.GOOGLE_PLAY_STORE,
+            StringConstantsUtil.ITUNES);
 
     public void validateReviewData(List<Review> reviewList) throws UnsupportedReviewSource {
         for (Review review : reviewList) {
@@ -38,10 +39,12 @@ public class ReviewValidation {
         }
     }
 
-    public void validateGetReviewRequest(String storeType, int ratingCategory) throws UnsupportedReviewSource {
-        if (ratingCategory < 1 || ratingCategory > 5)
+    public void validateGetReviewRequest(String storeType, Integer ratingCategory) throws UnsupportedReviewSource {
+        if (ratingCategory != null && (ratingCategory < 1 || ratingCategory > 5))
             throw new IllegalArgumentException("Invalid rating category: " + ratingCategory);
-        if (!supportedReviewSource.contains(storeType))
-            throw new UnsupportedReviewSource("Review source '" + storeType + "' not supported");
+        if (storeType != null && !supportedReviewSource.contains(storeType))
+            throw new UnsupportedReviewSource(
+                    "Review source '" + storeType +
+                            "' not supported. Review source must be one of " + supportedReviewSource);
     }
 }

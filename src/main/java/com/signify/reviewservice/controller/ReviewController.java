@@ -42,6 +42,9 @@ public class ReviewController {
         return ResponseEntity.ok(savedReviews);
     }
 
+    /*
+    * input date should be in format: yyyy-mm-dd
+    * */
     @GetMapping(value = "review", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReviewDTO>> getReview(@RequestParam(name = "rating", required = false) Integer rating,
                                      @RequestParam(name = "store", required = false) String storeType,
