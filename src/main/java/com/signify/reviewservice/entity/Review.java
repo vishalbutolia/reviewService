@@ -21,6 +21,7 @@ public class Review {
     private String author;
     @Indexed
     private String reviewSource;
+    @Indexed
     private Integer rating;
     private String title;
     private String productName;
